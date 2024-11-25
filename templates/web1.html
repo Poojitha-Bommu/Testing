@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .image-card {
+            text-align: center;
+            max-width: 45%;
+        }
+
+        .image-card img {
+            max-width: 100%;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Processing with ML Model</h1>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Upload and Process</button>
+        </form>
+
+        {% if input_image %}
+        <div>
+            <h2>Input Image</h2>
+            <img src="{{ url_for('static', filename='uploads/' + input_image) }}" alt="Input Image">
+        </div>
+        {% endif %}
+
+        {% if output_images %}
+        <div class="images">
+            {% for image in output_images %}
+            <div class="image-card">
+                <h2>Processed Image {{ loop.index }}</h2>
+                <img src="{{ url_for('static', filename='uploads/' + image) }}" alt="Output Image {{ loop.index }}">
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
